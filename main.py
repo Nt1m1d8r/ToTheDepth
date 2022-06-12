@@ -1,11 +1,20 @@
 import pygame
 
-width = 500
-height = 500
+width = 1200
+height = 700
+white = (255, 255, 255)
+blockSize = 50 #Set the size of the grid block
 window = pygame.display.set_mode((width, height))
 pygame.display.set_caption('To the Depths!')
 
 pygame.init()
+
+
+def drawGrid():
+    for x in range(50, (width - 50), blockSize):
+        for y in range(50, (height - 2 * blockSize), blockSize):
+            rect = pygame.Rect(x, y, blockSize, blockSize)
+            pygame.draw.rect(window, white, rect, 1)
 
 
 class Player():
@@ -16,7 +25,7 @@ class Player():
         self.height = Pheight
         self.color = color
         self.rect = (x, y, Pwidth, Pheight)
-        self.vel = 3
+        self.step = blockSize
 
     def draw(self, win):
         pygame.draw.rect(win, self.color, self.rect)
@@ -24,26 +33,31 @@ class Player():
     def move(self):
         key_input = pygame.key.get_pressed()
         if key_input[pygame.K_LEFT]:
-            self.x -= self.vel
+            if (self.x - self.step) >= 0:
+                self.x -= self.step
         if key_input[pygame.K_UP]:
-            self.y -= self.vel
+            if (self.y - self.step) >= 0:
+                self.y -= self.step
         if key_input[pygame.K_RIGHT]:
-            self.x += self.vel
+            if (self.x + self.step) < width:
+                self.x += self.step
         if key_input[pygame.K_DOWN]:
-            self.y += self.vel
+            if (self.y + self.step) < height:
+                self.y += self.step
         self.rect = (self.x, self.y, self.width, self.height)
 
 
 def redrawWindow(window, player):
 
-    window.fill((255, 128, 255))
+    window.fill((0, 0, 0))
+    drawGrid()
     player.draw(window)
     pygame.display.update()
 
 
 def main():
     run = True
-    p = Player(50, 50, 100, 100, (128, 128, 64))
+    p = Player((width / 2), (height / 2), 50, 50, (128, 128, 64))
     clock = pygame.time.Clock()
     # Event loop
     while run:
