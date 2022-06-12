@@ -6,7 +6,8 @@ white = (255, 255, 255)
 blockSize = 50 #Set the size of the grid block
 window = pygame.display.set_mode((width, height))
 pygame.display.set_caption('To the Depths!')
-
+icon = pygame.image.load('Spudd_Button.png')
+pygame.display.set_icon(icon)
 pygame.init()
 
 
@@ -35,15 +36,15 @@ class Player():
         if key_input[pygame.K_LEFT]:
             if (self.x - self.step) >= 0:
                 self.x -= self.step
-        if key_input[pygame.K_UP]:
-            if (self.y - self.step) >= 0:
-                self.y -= self.step
-        if key_input[pygame.K_RIGHT]:
-            if (self.x + self.step) < width:
-                self.x += self.step
-        if key_input[pygame.K_DOWN]:
-            if (self.y + self.step) < height:
-                self.y += self.step
+        #if key_input[pygame.K_UP]:
+        #    if (self.y - self.step) >= 0:
+        #        self.y -= self.step
+        #if key_input[pygame.K_RIGHT]:
+        #    if (self.x + self.step) < width:
+        #        self.x += self.step
+        #if key_input[pygame.K_DOWN]:
+        #    if (self.y + self.step) < height:
+        #        self.y += self.step
         self.rect = (self.x, self.y, self.width, self.height)
 
 
